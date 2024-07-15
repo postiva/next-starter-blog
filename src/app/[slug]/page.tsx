@@ -18,7 +18,7 @@ export async function generateMetadata({
   const { slug } = params;
 
   const post = await postivaClient.contents.getContentBySlug(slug);
-  const postUrl = process.env.NEXT_PUBLIC_URL + "/blogs/" + post.slug;
+  const postUrl = process.env.NEXT_PUBLIC_URL + "/" + post.slug;
 
   const metadata: Metadata = {
     metadataBase: new URL(postUrl),
@@ -48,10 +48,10 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      site: "@aliosmandev",
+      site: "@postivaapp",
       title: post.title || (post.seoTitle as string),
       description: post.description || (post.seoDescription as string),
-      siteId: "@aliosmandev",
+      siteId: "@postivaapp",
       creator: post.publishedBy?.user?.name || "",
       images: [
         {

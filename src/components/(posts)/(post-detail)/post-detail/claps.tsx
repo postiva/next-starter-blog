@@ -1,6 +1,6 @@
 "use client";
 
-import { postivaClient } from "@/libs/postiva";
+import { postivaClient } from "@/lib/postiva";
 import { Content } from "@postiva/client";
 import { Fragment, useCallback, useEffect, useState } from "react";
 import { PiHandsClapping } from "react-icons/pi";

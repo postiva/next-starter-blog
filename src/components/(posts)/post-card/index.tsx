@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import DateTooltip, { IDateMode } from "@/components/ui/date-tooltip";
 import { Content } from "@postiva/client";
 import Image from "next/image";
+import Link from "next/link";
 
 export const PostCard = (content: Content) => {
   return (
@@ -24,7 +25,9 @@ export const PostCard = (content: Content) => {
               </Badge>
             ))}
           </div>
-          <h3 className="text-2xl font-medium">{content.title}</h3>
+          <Link href={`/${content.slug}`} className="text-2xl font-medium">
+            {content.title}
+          </Link>
           <p className="text-sm text-[#7C7C86]">{content.description}</p>
         </div>
         <div className="mt-auto flex gap-x-2 items-center text-sm">

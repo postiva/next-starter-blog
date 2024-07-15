@@ -23,9 +23,13 @@
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
+    "react-icons": "^5.2.1",
+    "react-share": "^5.1.0",
     "sharp": "^0.33.4",
+    "sonner": "^1.5.0",
     "tailwind-merge": "^2.4.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "usehooks-ts": "^3.1.0"
   },
   "devDependencies": {
     "@types/node": "^20",

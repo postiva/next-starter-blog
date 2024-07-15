@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { Inter as FontSans } from "next/font/google";
+import { Toaster } from "sonner";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -29,6 +30,7 @@ export default function RootLayout({
         )}
       >
         <TooltipProvider>
+          <Toaster />
           <main className="container mx-auto pt-24 pb-10 px-20">
             {children}
           </main>

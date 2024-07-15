@@ -1,13 +1,17 @@
 "use client";
 
-import { Button } from "@nextui-org/button";
+import { buttonVariants } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
+import Link from "next/link";
 
 export default function BackBlogs() {
   return (
-    <Button size="sm" variant="flat" href="/blogs" className="w-fit">
+    <Link
+      href="/blogs"
+      className={buttonVariants({ variant: "outline", size: "sm" })}
+    >
       <ChevronLeft className="w-4 h-4" />
       Back to blogs
-    </Button>
+    </Link>
   );
 }

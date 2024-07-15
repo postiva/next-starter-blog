@@ -1,7 +1,11 @@
 "use client";
 
-import { copyText } from "@/utils";
-import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { copyText } from "@/lib/utils";
 import { Content } from "@postiva/client";
 import { CopyIcon, LinkedinIcon, TwitterIcon } from "lucide-react";
 import { GoShare } from "react-icons/go";
