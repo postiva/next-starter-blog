@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import DateTooltip, { IDateMode } from "@/components/ui/date-tooltip";
 import Image from "next/image";
@@ -16,7 +16,7 @@ export const FeaturedPost = () => {
       </div>
       <div className="col-span-5 h-full flex flex-col justify-between py-6">
         <div className="flex flex-col gap-2 p-6 h-full max-w-md">
-          <Badge variant="featured" className="rounded-md w-fit">
+          <Badge variant="featured" radius="rounded" className="w-fit">
             News
           </Badge>
           <DateTooltip
@@ -24,7 +24,7 @@ export const FeaturedPost = () => {
             mode={IDateMode.absolute}
             date={new Date()}
           />
-          <h3 className="text-2xl font-bold text-white">
+          <h3 className="text-2xl font-bold">
             How Glide is Bringing the Future of AI to the Real World
           </h3>
           <p className="text-sm text-gray-500">
@@ -34,10 +34,11 @@ export const FeaturedPost = () => {
           </p>
           <div className="mt-auto flex gap-x-2">
             <Avatar>
+              <AvatarImage src="https://avatars.githubusercontent.com/u/106361546?v=4" />
               <AvatarFallback>Ali Osman</AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
-              <p className="text-sm text-white font-medium">Ali Osman</p>
+              <p className="text-sm font-medium">Ali Osman</p>
               <p className="text-sm text-gray-500">Founder</p>
             </div>
           </div>

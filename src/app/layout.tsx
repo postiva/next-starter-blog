@@ -24,11 +24,15 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased bg-black",
+          "min-h-screen bg-background font-sans antialiased bg-black text-white",
           fontSans.variable
         )}
       >
-        <TooltipProvider>{children}</TooltipProvider>
+        <TooltipProvider>
+          <main className="container mx-auto pt-24 pb-10 px-20">
+            {children}
+          </main>
+        </TooltipProvider>
       </body>
     </html>
   );
