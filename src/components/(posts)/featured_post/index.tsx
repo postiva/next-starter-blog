@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import DateTooltip, { IDateMode } from "@/components/ui/date-tooltip";
 import { Content } from "@postiva/client";
 import Image from "next/image";
+import Link from "next/link";
 
 export const FeaturedPost = ({ post }: { post: Content }) => {
   return (
@@ -36,7 +37,12 @@ export const FeaturedPost = ({ post }: { post: Content }) => {
               date={new Date(post.publishedAt as string)}
             />
           </div>
-          <h3 className="text-lg lg:text-2xl font-bold">{post.title}</h3>
+          <Link
+            href={`/${post.slug}`}
+            className="text-lg lg:text-2xl font-bold"
+          >
+            {post.title}
+          </Link>
           <p className="text-sm text-gray-500">{post.description}</p>
           <div className="mt-auto flex gap-x-2">
             <Avatar className="w-5 h-5 lg:w-10 lg:h-10">

@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { postivaClient } from "@/lib/postiva";
 import { Content } from "@postiva/client";
 import { PostCard } from "../post-card";
+import { PostSearch } from "./post-search";
 
 export const PostsSection = async ({ posts }: { posts: Content[] }) => {
   const categories = await postivaClient.categories.getCategories();
@@ -21,6 +22,7 @@ export const PostsSection = async ({ posts }: { posts: Content[] }) => {
               {category.name}
             </Badge>
           ))}
+          <PostSearch />
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
