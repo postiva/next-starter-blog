@@ -9,10 +9,10 @@ services:
       - dokploy-network
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.postiva.entrypoints=websecure"
-      - "traefik.http.routers.postiva.tls.certResolver=letsencrypt"
-      - "traefik.http.routers.postiva.rule=Host(`next.postiva.app`)"
-      - "traefik.http.services.postiva.loadbalancer.server.port=8000"
+      - "traefik.http.routers.nextstarter.entrypoints=websecure"
+      - "traefik.http.routers.nextstarter.tls.certResolver=letsencrypt"
+      - "traefik.http.routers.nextstarter.rule=Host(`next.postiva.app`)"
+      - "traefik.http.services.nextstarter.loadbalancer.server.port=8000"
     ports:
       - 8000:8000
 
