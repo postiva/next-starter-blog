@@ -1,23 +1,59 @@
+"use client";
 import { Badge } from "@/components/ui/badge";
 import { postivaClient } from "@/lib/postiva";
-import { Content } from "@postiva/client";
+import { Content, ContentCategory } from "@postiva/client";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { PostCard } from "../post-card";
 import { PostSearch } from "./post-search";
 
-export const PostsSection = async ({ posts }: { posts: Content[] }) => {
-  const categories = await postivaClient.categories.getCategories();
+export const PostsSection = ({ posts }: { posts: Content[] }) => {
+  const router = useRouter();
+  const [categories, setCategories] = useState<ContentCategory[]>([]);
+  const selectedCategory = useSearchParams().get("category");
+
+  const handleCategoryChange = (category: string) => {
+    const url = new URL(window.location.href);
+    if (category === "") {
+      url.searchParams.delete("category");
+    } else {
+      url.searchParams.set("category", category);
+    }
+    router.push(url.toString());
+  };
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const categories = await postivaClient.categories.getCategories();
+      setCategories([...categories?.data]);
+    };
+    fetchCategories();
+  }, []);
 
   return (
     <div className="flex flex-col space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-3xl font-medium">Recent Articles</h2>
         <div className="flex gap-x-2">
-          {categories.data.map((category) => (
+          <Badge
+            onClick={() => handleCategoryChange("")}
+            className={`cursor-pointer ${
+              selectedCategory === "" ? "!bg-primary/70" : ""
+            }`}
+            radius="pill"
+            size="md"
+          >
+            All
+          </Badge>
+          {categories.map((category) => (
             <Badge
-              className="cursor-pointer"
+              key={category.id}
+              onClick={() => handleCategoryChange(category.id)}
+              className={`cursor-pointer ${
+                selectedCategory === category.id ? "!bg-primary/70" : ""
+              }`}
               radius="pill"
               size="md"
-              key={category.id}
             >
               {category.name}
             </Badge>
@@ -26,9 +62,11 @@ export const PostsSection = async ({ posts }: { posts: Content[] }) => {
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {posts?.map((post) => (
-          <PostCard key={post.id} {...post} />
-        ))}
+        {posts.length > 0 ? (
+          posts.map((post) => <PostCard key={post.id} {...post} />)
+        ) : (
+          <div className="col-span-full">No posts found</div>
+        )}
       </div>
     </div>
   );

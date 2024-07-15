@@ -2,8 +2,15 @@ import { FeaturedPost } from "@/components/(posts)/featured_post";
 import { PostsSection } from "@/components/(posts)/posts-section";
 import { postivaClient } from "@/lib/postiva";
 
-export default async function Home() {
-  const posts = await postivaClient.contents.getContents();
+export default async function Home({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string | undefined };
+}) {
+  const selectedCategory = searchParams?.category as string;
+  const posts = await postivaClient.contents.getContents({
+    ...(selectedCategory ? { categories: [selectedCategory] } : {}),
+  });
 
   const randomPost = posts.data[Math.floor(Math.random() * posts.data.length)];
 
