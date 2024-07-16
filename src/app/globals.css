@@ -69,3 +69,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  [data-headlessui-state="open"] {
+    @apply dark:!bg-gray-900;
+  }
+}

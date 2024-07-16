@@ -1,132 +1,220 @@
 "use client";
+
 import { postivaClient } from "@/lib/postiva";
-import { DiscordLogoIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
-import { FilesIcon, Loader2Icon, SearchIcon } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
-import CommandPalette, {
-  JsonStructureItem,
-  filterItems,
-  getItemIndex,
-} from "react-cmdk";
-import "react-cmdk/dist/cmdk.css";
+import { Content } from "@postiva/client";
+import {
+  Command,
+  CommandMenu,
+  CommandWrapper,
+  InnerCommand,
+  useCommands,
+  useKmenu,
+} from "kmenu";
+import { FileIcon, Loader2Icon } from "lucide-react";
+import { useTheme } from "next-themes";
+import { useRouter } from "next/navigation";
+import { ReactElement, useEffect, useState } from "react";
+import { BsDiscord, BsGithub, BsTwitterX } from "react-icons/bs";
+import {
+  FiCommand,
+  FiHome,
+  FiLink,
+  FiMoon,
+  FiSearch,
+  FiSun,
+} from "react-icons/fi";
+import { HiOutlineDesktopComputer } from "react-icons/hi";
+import { LuLink2 } from "react-icons/lu";
+import { TbMoonStars } from "react-icons/tb";
 import { useDebounceValue } from "usehooks-ts";
 
-const Cmdk = ({
-  open,
-  setOpen,
-}: {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-}) => {
-  const [page] = useState<"root" | "posts">("root");
-  const [search, setSearch] = useState("");
-  const [debouncedSearch] = useDebounceValue(search, 1000);
-  const [posts, setPosts] = useState<JsonStructureItem[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const hasNoResults = posts.length === 0 && debouncedSearch.trim() !== "";
+type Page = {
+  icon: ReactElement;
+  name: string;
+  href?: string;
+};
 
-  const searchPosts = async () => {
-    setIsLoading(true);
-    const searchPosts = await postivaClient.contents.getContents({
-      query: debouncedSearch,
+export type Item = {
+  category: string;
+  pages: Page[];
+};
+
+export const Cmdk = () => {
+  const router = useRouter();
+
+  const { setTheme } = useTheme();
+  const { setOpen, input } = useKmenu();
+  const [debouncedValue] = useDebounceValue(input, 500);
+  const [loading, setLoading] = useState(false);
+
+  const [contents, setContents] = useState<Content[]>([]);
+
+  const generatePostsCommands = (): InnerCommand[] =>
+    contents.map((content) => ({
+      icon: <FileIcon />,
+      text: content.title,
+      perform: () => router.push(`/${content.slug}`),
+      closeOnComplete: true,
+    }));
+
+  const main: Command[] = [
+    {
+      category: "Navigation",
+      commands: [
+        {
+          icon: <FiHome />,
+          text: "Home",
+          perform: () => router.push("/"),
+          closeOnComplete: true,
+          keywords: ["back"],
+        },
+        {
+          icon: <FiSearch />,
+          text: "Search Posts...",
+          perform: () => setOpen(2),
+          shortcuts: { modifier: <FiCommand />, keys: ["E"] },
+          keywords: ["posts", "articles", "blog"],
+        },
+      ],
+    },
+    {
+      category: "Utility",
+      commands: [
+        {
+          icon: <TbMoonStars />,
+          text: "Set Theme...",
+          perform: () => setOpen(3),
+          keywords: ["dark", "mode", "light"],
+        },
+        {
+          icon: <FiLink />,
+          text: "Copy URL",
+          perform: () =>
+            navigator.clipboard.writeText(`https://kmenu.hxrsh.in/docs`),
+          closeOnComplete: true,
+        },
+      ],
+    },
+    {
+      category: "Other",
+      commands: [
+        {
+          icon: <LuLink2 />,
+          text: "Links...",
+          keywords: ["github", "code", "npm", "x", "twitter"],
+          perform: () => setOpen(4),
+        },
+      ],
+    },
+  ];
+
+  const posts: Command[] = [
+    {
+      category: "Posts",
+      commands: generatePostsCommands(),
+    },
+  ];
+
+  const theme: Command[] = [
+    {
+      category: "Set Theme",
+      commands: [
+        {
+          icon: <HiOutlineDesktopComputer />,
+          text: "System",
+          perform: () => setTheme("system"),
+        },
+        {
+          icon: <FiSun />,
+          text: "Light",
+          perform: () => setTheme("light"),
+        },
+        {
+          icon: <FiMoon />,
+          text: "Dark",
+          perform: () => setTheme("dark"),
+        },
+      ],
+    },
+  ];
+
+  const links: Command[] = [
+    {
+      category: "Links",
+      commands: [
+        {
+          icon: <BsDiscord />,
+          text: "Join Discord",
+          href: "https://www.postiva.app/discord",
+          newTab: true,
+        },
+        {
+          icon: <BsGithub />,
+          text: "GitHub",
+          href: "https://github.com/postiva",
+          newTab: true,
+        },
+        {
+          icon: <BsTwitterX />,
+          text: "Twitter",
+          href: "https://x.com/postivaapp",
+          newTab: true,
+        },
+      ],
+    },
+  ];
+
+  const [mainCommands] = useCommands(main);
+  const [postsCommands, setPostsCommands] = useCommands(posts);
+  const [themeCommands] = useCommands(theme);
+  const [linkCommands] = useCommands(links);
+
+  const fetchData = async (query: string) => {
+    setLoading(true);
+    const response = await postivaClient.contents.getContents({
+      query,
     });
-
-    if (searchPosts?.data.length === 0 && debouncedSearch.trim() !== "") {
-      setPosts([]);
-    } else {
-      const posts = searchPosts?.data?.map((post) => ({
-        id: post.id,
-        children: post.title,
-        icon: () => <FilesIcon className="w-4 h-4" />,
-        href: `/${post.slug}`,
-      })) as JsonStructureItem[];
-      setPosts(posts);
-    }
-
-    setIsLoading(false);
+    setContents(response?.data);
+    const newPosts: Command = {
+      category: "Posts",
+      commands: generatePostsCommands(),
+    };
+    setPostsCommands([newPosts]);
+    setLoading(false);
   };
 
   useEffect(() => {
-    searchPosts();
-  }, [debouncedSearch]);
+    fetchData(debouncedValue);
+  }, [debouncedValue]);
 
-  const filteredItems = useMemo(() => {
-    return filterItems(
-      [
-        {
-          heading: "Posts",
-          id: "posts",
-          items: posts,
-        },
-        {
-          heading: "Other",
-          id: "advanced",
-          items: [
-            {
-              id: "github",
-              children: "Github",
-              icon: () => <GitHubLogoIcon />,
-              href: "#",
-            },
-            {
-              id: "discord",
-              children: "Discord",
-              icon: () => <DiscordLogoIcon />,
-              href: "#",
-            },
-          ],
-        },
-      ],
-      search
-    );
-  }, [posts, search]);
+  useEffect(() => {
+    fetchData(input);
+  }, [input]);
+
+  console.log("postsCommands", postsCommands);
 
   return (
-    <CommandPalette
-      onChangeSearch={setSearch}
-      onChangeOpen={setOpen}
-      search={search}
-      isOpen={open}
-      page={page}
-      placeholder="Search posts..."
-    >
-      <CommandPalette.Page id="root">
-        {filteredItems.length ? (
-          filteredItems.map((list) => (
-            <CommandPalette.List key={list.id} heading={list.heading}>
-              {list.items.map(({ id, ...rest }) => (
-                <CommandPalette.ListItem
-                  key={id}
-                  index={getItemIndex(filteredItems, id)}
-                  {...rest}
-                />
-              ))}
-            </CommandPalette.List>
-          ))
-        ) : (
-          <CommandPalette.ListItem
-            index={0}
-            icon={() =>
-              isLoading ? (
-                <Loader2Icon className="w-4 h-4 animate-spin" />
-              ) : (
-                <SearchIcon className="w-4 h-4" />
-              )
-            }
-            showType={false}
-          >
-            <span className="max-w-md truncate dark:text-white">
-              {isLoading
-                ? "Searching..."
-                : hasNoResults
-                ? "No results found"
-                : "Search..."}
-            </span>
-          </CommandPalette.ListItem>
-        )}
-      </CommandPalette.Page>
-    </CommandPalette>
+    <CommandWrapper>
+      <CommandMenu commands={mainCommands} index={1} crumbs={["Home"]} />
+      <CommandMenu
+        commands={postsCommands}
+        index={2}
+        crumbs={["Home", "Posts"]}
+        placeholder="Search Posts..."
+        loadingState={loading}
+        loadingPlaceholder={<Loader2Icon className="w-4 h-4 animate-spin" />}
+        preventSearch
+      />
+      <CommandMenu
+        commands={themeCommands}
+        index={3}
+        crumbs={["Home", "Theme"]}
+      />
+      <CommandMenu
+        commands={linkCommands}
+        index={4}
+        crumbs={["Home", "Links"]}
+      />
+    </CommandWrapper>
   );
 };
-
-export default Cmdk;

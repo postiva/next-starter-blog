@@ -1,10 +1,11 @@
+import "kmenu/dist/cmdk.css";
+import "kmenu/dist/vars.css";
 import type { Metadata } from "next";
 import "./globals.css";
 
+import { Provider } from "@/components/providers/main-provider";
 import { cn } from "@/lib/utils";
-import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { Inter as FontSans } from "next/font/google";
-import { Toaster } from "sonner";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -22,19 +23,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html data-mode="dark" lang="en" suppressHydrationWarning>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased bg-black text-white",
           fontSans.variable
         )}
       >
-        <TooltipProvider>
-          <Toaster />
+        <Provider>
           <main className="container mx-auto pt-24 pb-10 px-20">
             {children}
           </main>
-        </TooltipProvider>
+        </Provider>
       </body>
     </html>
   );

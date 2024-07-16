@@ -1,12 +1,12 @@
 "use client";
-import Cmdk from "@/components/(cmdk)";
+import { Cmdk } from "@/components/(cmdk)";
 import { Badge } from "@/components/ui/badge";
+import { useKmenu } from "kmenu";
 import { SearchIcon } from "lucide-react";
-import { Fragment, useEffect, useState } from "react";
-import { useHandleOpenCommandPalette } from "react-cmdk";
+import { Fragment, useEffect } from "react";
 
 export const PostSearch = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { toggle } = useKmenu();
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -14,14 +14,12 @@ export const PostSearch = () => {
         (navigator?.platform?.toLowerCase().includes("mac")
           ? e.metaKey
           : e.ctrlKey) &&
-        e.key === "k"
+        e.key === "f"
       ) {
         e.preventDefault();
         e.stopPropagation();
 
-        setIsOpen((currentValue) => {
-          return !currentValue;
-        });
+        toggle();
       }
     }
 
@@ -32,8 +30,6 @@ export const PostSearch = () => {
     };
   }, []);
 
-  useHandleOpenCommandPalette(setIsOpen);
-
   return (
     <Fragment>
       {" "}
@@ -41,11 +37,11 @@ export const PostSearch = () => {
         className="flex items-center gap-x-1.5 cursor-pointer hover:bg-muted/10 transition-all duration-500"
         radius="pill"
         size="md"
-        onClick={() => setIsOpen((currentValue) => !currentValue)}
+        onClick={toggle}
       >
         <SearchIcon className="w-3.5 h-3.5" />
       </Badge>
-      <Cmdk open={isOpen} setOpen={setIsOpen} />
+      <Cmdk />
     </Fragment>
   );
 };
