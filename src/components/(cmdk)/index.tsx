@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { postivaClient } from "@/lib/postiva";
@@ -15,14 +16,7 @@ import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import { ReactElement, useEffect, useState } from "react";
 import { BsDiscord, BsGithub, BsTwitterX } from "react-icons/bs";
-import {
-  FiCommand,
-  FiHome,
-  FiLink,
-  FiMoon,
-  FiSearch,
-  FiSun,
-} from "react-icons/fi";
+import { FiCommand, FiHome, FiMoon, FiSearch, FiSun } from "react-icons/fi";
 import { HiOutlineDesktopComputer } from "react-icons/hi";
 import { LuLink2 } from "react-icons/lu";
 import { TbMoonStars } from "react-icons/tb";
@@ -43,7 +37,7 @@ export const Cmdk = () => {
   const router = useRouter();
 
   const { setTheme } = useTheme();
-  const { setOpen, input } = useKmenu();
+  const { open, setOpen, input } = useKmenu();
   const [debouncedValue] = useDebounceValue(input, 500);
   const [loading, setLoading] = useState(false);
 
@@ -85,13 +79,6 @@ export const Cmdk = () => {
           text: "Set Theme...",
           perform: () => setOpen(3),
           keywords: ["dark", "mode", "light"],
-        },
-        {
-          icon: <FiLink />,
-          text: "Copy URL",
-          perform: () =>
-            navigator.clipboard.writeText(`https://kmenu.hxrsh.in/docs`),
-          closeOnComplete: true,
         },
       ],
     },
@@ -191,7 +178,11 @@ export const Cmdk = () => {
     fetchData(input);
   }, [input]);
 
-  console.log("postsCommands", postsCommands);
+  useEffect(() => {
+    if (open === 2) {
+      fetchData("");
+    }
+  }, [open]);
 
   return (
     <CommandWrapper>
@@ -202,7 +193,11 @@ export const Cmdk = () => {
         crumbs={["Home", "Posts"]}
         placeholder="Search Posts..."
         loadingState={loading}
-        loadingPlaceholder={<Loader2Icon className="w-4 h-4 animate-spin" />}
+        loadingPlaceholder={
+          <div className="flex items-center justify-center mt-2">
+            <Loader2Icon className="w-4 h-4 text-gray-500 animate-spin" />
+          </div>
+        }
         preventSearch
       />
       <CommandMenu

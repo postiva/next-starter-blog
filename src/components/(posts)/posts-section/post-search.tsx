@@ -3,41 +3,24 @@ import { Cmdk } from "@/components/(cmdk)";
 import { Badge } from "@/components/ui/badge";
 import { useKmenu } from "kmenu";
 import { SearchIcon } from "lucide-react";
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 
 export const PostSearch = () => {
-  const { toggle } = useKmenu();
+  const { toggle, setOpen } = useKmenu();
 
-  useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if (
-        (navigator?.platform?.toLowerCase().includes("mac")
-          ? e.metaKey
-          : e.ctrlKey) &&
-        e.key === "f"
-      ) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        toggle();
-      }
-    }
-
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
+  const handleSearch = () => {
+    toggle();
+    setOpen(2);
+  };
 
   return (
     <Fragment>
       {" "}
       <Badge
-        className="flex items-center gap-x-1.5 cursor-pointer hover:bg-muted/10 transition-all duration-500"
+        className="flex items-center gap-x-1.5 cursor-pointer hover:bg-primary/70 transition-all duration-500"
         radius="pill"
         size="md"
-        onClick={toggle}
+        onClick={handleSearch}
       >
         <SearchIcon className="w-3.5 h-3.5" />
       </Badge>
