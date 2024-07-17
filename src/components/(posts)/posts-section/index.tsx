@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { postivaClient } from "@/lib/postiva";
 import { Content, ContentCategory } from "@postiva/client";
 import { MenuProvider } from "kmenu";
+import { CheckIcon } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { PostCard } from "../post-card";
@@ -11,14 +12,23 @@ import { PostSearch } from "./post-search";
 export const PostsSection = ({ posts }: { posts: Content[] }) => {
   const router = useRouter();
   const [categories, setCategories] = useState<ContentCategory[]>([]);
-  const selectedCategory = useSearchParams().get("category");
+  const selectedCategories = useSearchParams().get("categories");
 
   const handleCategoryChange = (category: string) => {
     const url = new URL(window.location.href);
-    if (category === "") {
-      url.searchParams.delete("category");
+    if (selectedCategories?.includes(category)) {
+      const filteredCategories = selectedCategories
+        ?.split(",")
+        .filter((c) => c !== category);
+      url.searchParams.set("categories", filteredCategories.join(","));
+    } else if (category === "all") {
+      url.searchParams.delete("categories");
     } else {
-      url.searchParams.set("category", category);
+      const categories = selectedCategories
+        ? [...selectedCategories.split(",")]
+        : [];
+      categories.push(category);
+      url.searchParams.set("categories", categories.join(","));
     }
     router.push(url.toString());
   };
@@ -40,25 +50,27 @@ export const PostsSection = ({ posts }: { posts: Content[] }) => {
           <h2 className="text-3xl font-medium">Recent Articles</h2>
           <div className="flex gap-x-2">
             <Badge
-              onClick={() => handleCategoryChange("")}
-              className={`cursor-pointer ${
-                selectedCategory === "" ? "!bg-primary/70" : ""
-              }`}
+              onClick={() => handleCategoryChange("all")}
+              className={`cursor-pointer flex items-center gap-x-2`}
+              variant="secondary"
               radius="pill"
               size="md"
             >
+              {!selectedCategories && <CheckIcon className="w-3 h-3" />}
               All
             </Badge>
             {categories.map((category) => (
               <Badge
                 key={category.id}
                 onClick={() => handleCategoryChange(category.id)}
-                className={`cursor-pointer ${
-                  selectedCategory === category.id ? "!bg-primary/70" : ""
-                }`}
+                className={`cursor-pointer flex items-center gap-x-2`}
+                variant="secondary"
                 radius="pill"
                 size="md"
               >
+                {selectedCategories?.includes(category.id) && (
+                  <CheckIcon className="w-3 h-3" />
+                )}
                 {category.name}
               </Badge>
             ))}

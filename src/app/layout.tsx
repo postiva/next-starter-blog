@@ -1,5 +1,5 @@
+import "@/styles/kmenu-variables.css";
 import "kmenu/dist/cmdk.css";
-import "kmenu/dist/vars.css";
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -23,10 +23,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html data-mode="dark" lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased bg-black text-white",
+          "min-h-screen bg-background font-sans antialiased text-black bg-white dark:bg-[#121212] dark:text-white",
           fontSans.variable
         )}
       >

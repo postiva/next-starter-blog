@@ -4,7 +4,7 @@ import { Toaster } from "sonner";
 
 export const Provider = ({ children }: { children: React.ReactNode }) => {
   return (
-    <ThemeProvider defaultTheme="system" enableSystem attribute="class">
+    <ThemeProvider defaultTheme="light" enableSystem attribute="class">
       <TooltipProvider>
         <Toaster />
         {children}

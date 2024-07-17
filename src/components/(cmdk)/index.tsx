@@ -66,7 +66,7 @@ export const Cmdk = () => {
           icon: <FiSearch />,
           text: "Search Posts...",
           perform: () => setOpen(2),
-          shortcuts: { modifier: <FiCommand />, keys: ["E"] },
+          shortcuts: { modifier: <FiCommand />, keys: ["F"] },
           keywords: ["posts", "articles", "blog"],
         },
       ],

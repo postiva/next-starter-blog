@@ -20,7 +20,7 @@ export const PostCard = (content: Content) => {
         <div className="flex flex-col gap-y-2">
           <div className="flex gap-x-1">
             {content?.categories?.map((category) => (
-              <Badge className="w-fit" variant="default" key={category.id}>
+              <Badge className="w-fit" variant="secondary" key={category.id}>
                 {category.name}
               </Badge>
             ))}
@@ -28,19 +28,21 @@ export const PostCard = (content: Content) => {
           <Link href={`/${content.slug}`} className="text-2xl font-medium">
             {content.title}
           </Link>
-          <p className="text-sm text-[#7C7C86]">{content.description}</p>
+          <p className="text-sm text-gray-600 dark:text-[#7C7C86]">
+            {content.description}
+          </p>
         </div>
-        <div className="mt-auto flex gap-x-2 items-center text-sm">
+        <div className="mt-auto flex gap-x-2 items-center text-sm absolute bottom-2 left-0">
           <Avatar className="h-9 w-9">
             <AvatarImage src={content.publishedBy?.user.image} />
             <AvatarFallback>{content.publishedBy?.user.name}</AvatarFallback>
           </Avatar>
-          <div className="flex flex-col gap-y-0.5">
-            <p className="text-md text-[#D8D8DB] leading-none mt-1">
+          <div className="flex flex-col">
+            <p className="text-md text-black font-medium dark:text-[#D8D8DB] leading-none mt-1">
               {content.publishedBy?.user.name}
             </p>
             <DateTooltip
-              className="text-[#96969E] text-xs"
+              className="text-gray-600 dark:text-[#96969E] text-sm"
               mode={IDateMode.absolute}
               date={new Date(content.publishedAt as string)}
             />

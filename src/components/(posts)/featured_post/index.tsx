@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export const FeaturedPost = ({ post }: { post: Content }) => {
   return (
-    <div className="bg-card_bg rounded-lg p-2 grid grid-cols-12 h-[450px] lg:h-96">
+    <div className="bg-gray-100 border-gray-200 border dark:border-gray-800 dark:bg-card_bg rounded-lg p-2 grid grid-cols-12 h-[450px] lg:h-96">
       <div className="col-span-12 relative h-56 lg:h-full lg:col-span-6">
         <Image
           src={post.thumbnail as string}
@@ -18,11 +18,11 @@ export const FeaturedPost = ({ post }: { post: Content }) => {
       </div>
       <div className="col-span-12 lg:col-span-6 h-full flex flex-col justify-between lg:py-6">
         <div className="flex flex-col lg:flex-col gap-1 lg:gap-2 p-3 lg:p-6 h-full max-w-md">
-          <div className="flex gap-1 lg:gap-gap-2 lg:flex-col h-fit">
-            <div className="flex gap-x-2">
+          <div className="flex gap-1 lg:gap-2 lg:flex-col h-fit">
+            <div className="flex gap-x-1">
               {post.categories.map((category) => (
                 <Badge
-                  variant="featured"
+                  variant="default"
                   radius="rounded"
                   className="w-fit h-fit"
                   key={category.id}

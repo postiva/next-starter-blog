@@ -12,7 +12,8 @@ export default async function Home({
     ...(selectedCategory ? { categories: [selectedCategory] } : {}),
   });
 
-  const randomPost = posts.data[Math.floor(Math.random() * posts.data.length)];
+  // const randomPost = posts.data[Math.floor(Math.random() * posts.data.length)];
+  const randomPost = posts.data[posts.data.length - 1];
 
   const postsWithoutRandom = posts.data.filter(
     (post) => post.id !== randomPost.id

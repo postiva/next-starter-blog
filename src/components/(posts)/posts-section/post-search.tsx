@@ -17,10 +17,11 @@ export const PostSearch = () => {
     <Fragment>
       {" "}
       <Badge
-        className="flex items-center gap-x-1.5 cursor-pointer hover:bg-primary/70 transition-all duration-500"
+        className="flex items-center gap-x-1.5 cursor-pointer transition-all duration-500"
         radius="pill"
         size="md"
         onClick={handleSearch}
+        variant="secondary"
       >
         <SearchIcon className="w-3.5 h-3.5" />
       </Badge>
