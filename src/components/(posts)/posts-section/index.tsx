@@ -1,17 +1,23 @@
 "use client";
 import { Badge } from "@/components/ui/badge";
 import { postivaClient } from "@/lib/postiva";
-import { Content, ContentCategory } from "@postiva/client";
+import { Content } from "@postiva/client";
 import { MenuProvider } from "kmenu";
 import { CheckIcon } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import { PostCard } from "../post-card";
 import { PostSearch } from "./post-search";
 
+import { Skeleton } from "@/components/ui/skeleton";
+import { Fragment } from "react";
+import { useQuery } from "react-query";
+
 export const PostsSection = ({ posts }: { posts: Content[] }) => {
   const router = useRouter();
-  const [categories, setCategories] = useState<ContentCategory[]>([]);
+  const { data: categories, isLoading } = useQuery({
+    queryKey: ["categories"],
+    queryFn: () => postivaClient.categories.getCategories(),
+  });
   const selectedCategories = useSearchParams().get("categories");
 
   const handleCategoryChange = (category: string) => {
@@ -33,14 +39,6 @@ export const PostsSection = ({ posts }: { posts: Content[] }) => {
     router.push(url.toString());
   };
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const categories = await postivaClient.categories.getCategories();
-      setCategories([...categories?.data]);
-    };
-    fetchCategories();
-  }, []);
-
   return (
     <MenuProvider
       dimensions={{ sectionHeight: 30, commandHeight: 50, commands: 6 }}
@@ -49,31 +47,44 @@ export const PostsSection = ({ posts }: { posts: Content[] }) => {
         <div className="flex justify-between items-center">
           <h2 className="text-3xl font-medium">Recent Articles</h2>
           <div className="flex gap-x-2">
-            <Badge
-              onClick={() => handleCategoryChange("all")}
-              className={`cursor-pointer flex items-center gap-x-2`}
-              variant="secondary"
-              radius="pill"
-              size="md"
-            >
-              {!selectedCategories && <CheckIcon className="w-3 h-3" />}
-              All
-            </Badge>
-            {categories.map((category) => (
-              <Badge
-                key={category.id}
-                onClick={() => handleCategoryChange(category.id)}
-                className={`cursor-pointer flex items-center gap-x-2`}
-                variant="secondary"
-                radius="pill"
-                size="md"
-              >
-                {selectedCategories?.includes(category.id) && (
-                  <CheckIcon className="w-3 h-3" />
-                )}
-                {category.name}
-              </Badge>
-            ))}
+            {isLoading ? (
+              <div className="flex items-center gap-x-2">
+                {new Array(8).fill(0).map((_, index) => (
+                  <Skeleton
+                    key={index}
+                    className="w-16 h-6 rounded-full !bg-secondary"
+                  />
+                ))}
+              </div>
+            ) : (
+              <Fragment>
+                <Badge
+                  onClick={() => handleCategoryChange("all")}
+                  className={`cursor-pointer flex items-center gap-x-2`}
+                  variant="secondary"
+                  radius="pill"
+                  size="md"
+                >
+                  {!selectedCategories && <CheckIcon className="w-3 h-3" />}
+                  All
+                </Badge>
+                {categories?.data.map((category) => (
+                  <Badge
+                    key={category.id}
+                    onClick={() => handleCategoryChange(category.id)}
+                    className={`cursor-pointer flex items-center gap-x-2`}
+                    variant="secondary"
+                    radius="pill"
+                    size="md"
+                  >
+                    {selectedCategories?.includes(category.id) && (
+                      <CheckIcon className="w-3 h-3" />
+                    )}
+                    {category.name}
+                  </Badge>
+                ))}
+              </Fragment>
+            )}
             <PostSearch />
           </div>
         </div>
