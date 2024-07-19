@@ -8,14 +8,21 @@ import {
 import { copyText } from "@/lib/utils";
 import { Content } from "@postiva/client";
 import { CopyIcon, LinkedinIcon, TwitterIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 import { GoShare } from "react-icons/go";
 import { LinkedinShareButton, TwitterShareButton } from "react-share";
 import { toast } from "sonner";
 
 export default function PostShare({ slug, title }: Content) {
-  const host =
-    typeof window !== "undefined" ? window.location.origin : undefined;
-  const url = `${host}/blogs/${slug}`;
+  const [host, setHost] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setHost(window.location.origin);
+    }
+  }, []);
+
+  const url = host ? `${host}/blogs/${slug}` : "";
 
   const handleCopy = () => {
     const copyPromise = () =>
@@ -32,6 +39,10 @@ export default function PostShare({ slug, title }: Content) {
       error: "Error",
     });
   };
+
+  if (!host) {
+    return null; // or a loading spinner
+  }
 
   return (
     <Popover>
@@ -74,9 +85,20 @@ export default function PostShare({ slug, title }: Content) {
 }
 
 export const TwitterShare = ({ title, slug }: Content) => {
-  const host =
-    typeof window !== "undefined" ? window.location.origin : undefined;
-  const url = `${host}/blogs/${slug}`;
+  const [host, setHost] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setHost(window.location.origin);
+    }
+  }, []);
+
+  const url = host ? `${host}/blogs/${slug}` : "";
+
+  if (!host) {
+    return null; // or a loading spinner
+  }
+
   return (
     <TwitterShareButton
       url={url}

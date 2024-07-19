@@ -40,12 +40,12 @@ export const PostCard = (content: Content) => {
             <AvatarImage src={content.publishedBy?.user.image} />
             <AvatarFallback>{content.publishedBy?.user.name}</AvatarFallback>
           </Avatar>
-          <div className="flex flex-col">
-            <p className="text-md text-black font-medium dark:text-[#D8D8DB] leading-none mt-1">
+          <div className="flex flex-col justify-between h-full gap-y-0.5">
+            <p className="text-sm text-black font-medium dark:text-[#D8D8DB] leading-none mt-0.5">
               {content.publishedBy?.user.name}
             </p>
             <DateTooltip
-              className="text-gray-600 dark:text-[#96969E] text-sm"
+              className="text-gray-500 dark:text-[#96969E] !text-xs !leading-4"
               mode={IDateMode.absolute}
               date={new Date(content.publishedAt as string)}
             />
