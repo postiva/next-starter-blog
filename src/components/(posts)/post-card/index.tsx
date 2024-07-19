@@ -25,7 +25,10 @@ export const PostCard = (content: Content) => {
               </Badge>
             ))}
           </div>
-          <Link href={`/${content.slug}`} className="text-2xl font-medium">
+          <Link
+            href={`/${content.slug}`}
+            className="text-2xl font-medium hover:text-primary/80 transition-all"
+          >
             {content.title}
           </Link>
           <p className="text-sm text-gray-600 dark:text-[#7C7C86]">

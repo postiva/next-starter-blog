@@ -1,11 +1,13 @@
 "use client";
 import { Cmdk } from "@/components/(cmdk)";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useKmenu } from "kmenu";
-import { SearchIcon } from "lucide-react";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
+import { CustomView, browserName } from "react-device-detect";
 
 export const PostSearch = () => {
+  const [mounted, setMounted] = useState(false);
   const { toggle, setOpen } = useKmenu();
 
   const handleSearch = () => {
@@ -13,17 +15,33 @@ export const PostSearch = () => {
     setOpen(2);
   };
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <Fragment>
-      {" "}
       <Badge
-        className="flex items-center gap-x-1.5 cursor-pointer transition-all duration-500"
+        className="flex items-center gap-x-1.5 cursor-pointer transition-all duration-500 hover:bg-muted mr-2 lg:mr-0 lg:ml-2"
         radius="pill"
         size="md"
         onClick={handleSearch}
         variant="secondary"
       >
-        <SearchIcon className="w-3.5 h-3.5" />
+        Search
+        {mounted ? (
+          <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100 transition-all">
+            <span>⌘</span>
+            <CustomView condition={browserName.includes("Safari")}>
+              K
+            </CustomView>
+            <CustomView condition={!browserName.includes("Safari")}>
+              F
+            </CustomView>
+          </kbd>
+        ) : (
+          <Skeleton className="h-5 w-7" />
+        )}
       </Badge>
       <Cmdk />
     </Fragment>

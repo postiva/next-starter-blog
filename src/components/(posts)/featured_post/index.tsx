@@ -2,6 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import DateTooltip, { IDateMode } from "@/components/ui/date-tooltip";
 import { Content } from "@postiva/client";
+import { SquareArrowOutUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -18,7 +19,7 @@ export const FeaturedPost = ({ post }: { post: Content }) => {
       </div>
       <div className="col-span-12 lg:col-span-6 h-full flex flex-col justify-between lg:py-6">
         <div className="flex flex-col lg:flex-col gap-1 lg:gap-2 p-3 lg:p-6 h-full max-w-md">
-          <div className="flex gap-1 lg:gap-2 lg:flex-col h-fit">
+          <div className="flex gap-1 lg:gap-2 flex-col h-fit">
             <div className="flex gap-x-1">
               {post.categories.map((category) => (
                 <Badge
@@ -39,21 +40,33 @@ export const FeaturedPost = ({ post }: { post: Content }) => {
           </div>
           <Link
             href={`/${post.slug}`}
-            className="text-lg lg:text-2xl font-bold"
+            className="text-lg lg:text-2xl font-bold hover:text-primary/80 transition-all"
           >
             {post.title}
           </Link>
           <p className="text-sm text-gray-500">{post.description}</p>
           <div className="mt-auto flex gap-x-2">
-            <Avatar className="w-5 h-5 lg:w-10 lg:h-10">
+            <Avatar className="w-5 h-5 lg:w-9 lg:h-9">
               <AvatarImage src={post.publishedBy?.user.image} />
-              <AvatarFallback>{post.publishedBy?.user.name}</AvatarFallback>
+              <AvatarFallback size={36}>
+                {post.publishedBy?.user.name}
+              </AvatarFallback>
             </Avatar>
             <div className="flex lg:flex-col gap-x-2">
               <p className="text-sm font-medium">
                 {post.publishedBy?.user.name}
               </p>
-              <p className="text-sm text-gray-500">Founder</p>
+              <p className="text-xs text-gray-500 group">
+                Founder at{" "}
+                <Link
+                  target="_blank"
+                  href="https://postiva.app"
+                  className="hover:text-primary/80 transition-all group-hover:text-primary/80"
+                >
+                  Postiva
+                  <SquareArrowOutUpRight className="w-2.5 h-2.5 ml-1 hidden group-hover:inline text-primary/80 mb-1" />
+                </Link>
+              </p>
             </div>
           </div>
         </div>

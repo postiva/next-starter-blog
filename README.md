@@ -12,6 +12,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 # Tasks
 
 * Shadcn implementation and theme configuration
-* [ ] UI Koding (home_page, content_detail)
-* [ ] Category managment
-* [ ] Content detail markdown render
+* [x] UI Koding (home_page, content_detail)
+* [x] Category managment
+* [x] Content detail markdown render
+* [x] Search command palette implementation
+* [ ] Infinite scroll contents

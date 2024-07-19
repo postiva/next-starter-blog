@@ -9,7 +9,6 @@ import { PostCard } from "../post-card";
 import { PostSearch } from "./post-search";
 
 import { Skeleton } from "@/components/ui/skeleton";
-import { Fragment } from "react";
 import { useQuery } from "react-query";
 
 export const PostsSection = ({ posts }: { posts: Content[] }) => {
@@ -44,9 +43,9 @@ export const PostsSection = ({ posts }: { posts: Content[] }) => {
       dimensions={{ sectionHeight: 30, commandHeight: 50, commands: 6 }}
     >
       <div className="flex flex-col space-y-6">
-        <div className="flex justify-between items-center">
+        <div className="flex flex-wrap justify-between items-center gap-x-10 gap-y-2">
           <h2 className="text-3xl font-medium">Recent Articles</h2>
-          <div className="flex gap-x-2">
+          <div className="flex items-center justify-end lg:justify-start flex-row-reverse lg:flex-row">
             {isLoading ? (
               <div className="flex items-center gap-x-2">
                 {new Array(8).fill(0).map((_, index) => (
@@ -57,7 +56,7 @@ export const PostsSection = ({ posts }: { posts: Content[] }) => {
                 ))}
               </div>
             ) : (
-              <Fragment>
+              <div className="flex gap-x-2">
                 <Badge
                   onClick={() => handleCategoryChange("all")}
                   className={`cursor-pointer flex items-center gap-x-2`}
@@ -83,7 +82,7 @@ export const PostsSection = ({ posts }: { posts: Content[] }) => {
                     {category.name}
                   </Badge>
                 ))}
-              </Fragment>
+              </div>
             )}
             <PostSearch />
           </div>

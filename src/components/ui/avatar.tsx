@@ -35,14 +35,16 @@ AvatarImage.displayName = AvatarPrimitive.Image.displayName;
 
 const AvatarFallback = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Fallback>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback> & {
+    size?: number;
+  }
+>(({ className, children, size = 40, ...props }, ref) => (
   <Avvvatars
     value={children}
     style="character"
     {...(props as any)}
     radius={4}
-    size={40}
+    size={size}
   />
 ));
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
