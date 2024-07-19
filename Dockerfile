@@ -16,10 +16,13 @@ RUN export COREPACK_ENABLE_STRICT=0 && pnpm install --frozen-lockfile
 FROM base AS builder
 WORKDIR /app
 COPY --from=installer /app/ .
-COPY --from=pruner /app/ .
 RUN export COREPACK_ENABLE_STRICT=0 && pnpm build
 
 FROM base AS runner
 WORKDIR /app
 COPY --from=builder /app/ .
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/pnpm-lock.yaml ./pnpm-lock.yaml
 CMD export COREPACK_ENABLE_STRICT=0 && pnpm start

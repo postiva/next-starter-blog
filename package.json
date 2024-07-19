@@ -2,6 +2,10 @@
   "name": "next-starter-blog",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Postiva",
+    "email": "support@postiva.app"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
