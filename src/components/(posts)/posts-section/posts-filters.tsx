@@ -59,7 +59,7 @@ export const PostsFilters = () => {
             size="md"
           >
             Filters
-            <ListFilter className="w-3 h-3 text-gray-700" />
+            <ListFilter className="w-3 h-3 text-gray-700 dark:text-gray-100" />
           </Badge>
         </HoverCardTrigger>
         <HoverCardContent className="w-[500px] flex items-center justify-end lg:justify-start flex-row-reverse lg:flex-row flex-wrap">
@@ -74,7 +74,9 @@ export const PostsFilters = () => {
             </div>
           ) : (
             <div className="flex flex-col gap-y-2">
-              <h3 className="text-sm font-medium text-gray-900">Categories</h3>
+              <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                Categories
+              </h3>
               <div className="flex gap-2 flex-wrap">
                 <Badge
                   onClick={() => handleCategoryChange("all")}
