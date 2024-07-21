@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 import { Provider } from "@/components/providers/main-provider";
+import { Announcement } from "@/components/ui/announcemene";
 import { cn } from "@/lib/utils";
 import { Inter as FontSans } from "next/font/google";
 
@@ -30,6 +31,7 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
+        <Announcement />
         <Provider>
           <main className="container mx-auto pt-24 pb-10 px-20">
             {children}

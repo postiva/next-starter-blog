@@ -33,12 +33,12 @@ export default function Claps({ id, analytics }: Content) {
 
   return (
     <Fragment>
-      <div className="block h-3 border-e border-gray-300 mx-3"></div>
+      <div className="block h-3 border-e border-gray-300 dark:border-neutral-500 mx-3"></div>
       <div className="hs-tooltip inline-block select-none">
         <button
           onClick={handleClap}
           type="button"
-          className="hs-tooltip-toggle flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300"
+          className="hs-tooltip-toggle flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800 dark:text-neutral-200 dark:hover:text-gray-300"
         >
           <PiHandsClapping className="flex-shrink-0 size-4" />
           {claps} claps

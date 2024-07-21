@@ -131,7 +131,7 @@ export default async function BlogDetail({
                   <span className="font-medium text-gray-800 dark:text-gray-200">
                     {post?.publishedBy?.user?.name}
                   </span>
-                  <ul className="text-xs text-gray-500 dark:text-gray-400 flex items-center">
+                  <ul className="text-xs text-gray-500 dark:text-neutral-200 flex items-center">
                     <li className="inline-block relative pe-6 last:pe-0 last-of-type:before:hidden before:absolute before:top-1/2 before:end-2 before:-translate-y-1/2 before:size-1 before:bg-gray-300 before:rounded-full">
                       <DateTooltip
                         date={new Date(post?.publishedAt as string)}
@@ -178,7 +178,7 @@ export default async function BlogDetail({
               {post.categories.map((category) => (
                 <a
                   key={category.id}
-                  className="m-1 inline-flex items-center gap-1.5 py-2 px-3 rounded-full text-sm bg-gray-100 text-gray-800 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+                  className="m-1 inline-flex items-center gap-1.5 py-2 px-3 rounded-full text-sm bg-gray-100 text-gray-800 hover:bg-gray-200 dark:bg-secondary dark:text-gray-200 dark:hover:bg-gray-700"
                   href="#"
                 >
                   {category.name}
@@ -189,22 +189,22 @@ export default async function BlogDetail({
         </div>
       </div>
       <div className="sticky bottom-6 inset-x-0 text-center">
-        <div className="inline-block bg-white shadow-md rounded-full py-3 px-4 text-sm text-gray-500 dark:bg-gray-800 dark:text-gray-200">
+        <div className="inline-block bg-white shadow-md rounded-full py-3 px-4 text-sm text-gray-500 dark:bg-secondary">
           <div className="flex items-center gap-x-1.5">
             <PostShare {...post} />
 
             {post?.analytics?.views && (
               <Fragment>
-                <div className="block h-3 border-e border-gray-300 mx-3 dark:border-gray-700"></div>
+                <div className="block h-3 border-e border-gray-300 mx-3 dark:border-neutral-500"></div>
                 <div className="hs-tooltip inline-block">
                   <button
                     type="button"
-                    className="hs-tooltip-toggle flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300"
+                    className="hs-tooltip-toggle flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800 dark:text-neutral-200 dark:hover:text-gray-300"
                   >
                     <LucideEye className="flex-shrink-0 size-4" />
                     {post.analytics.views} views
                     <span
-                      className="hs-tooltip-content opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm"
+                      className="hs-tooltip-content opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white dark:text-neutral-200 rounded shadow-sm"
                       role="tooltip"
                     >
                       Views
@@ -218,11 +218,11 @@ export default async function BlogDetail({
 
             {post.readingStatus && (
               <Fragment>
-                <div className="block h-3 border-e border-gray-300 mx-3 dark:border-gray-700"></div>
+                <div className="block h-3 border-e border-gray-300 mx-3 dark:border-neutral-500"></div>
                 <div className="hs-tooltip inline-block">
                   <button
                     type="button"
-                    className="hs-tooltip-toggle flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300"
+                    className="hs-tooltip-toggle flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800 dark:text-neutral-200 dark:hover:text-gray-300"
                   >
                     <CiTimer className="flex-shrink-0 size-4" />
                     {post.readingStatus.minutes} min read
