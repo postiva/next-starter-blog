@@ -52,6 +52,7 @@ export const PostsSection = ({ posts }: { posts: Content[] }) => {
           dataLength={allPosts.length}
           next={handleNextPage}
           hasMore={hasMore}
+          scrollThreshold={0.5}
           loader={
             <Fragment>
               {new Array(3).fill(0).map((_, index) => (
