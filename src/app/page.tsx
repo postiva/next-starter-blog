@@ -19,17 +19,14 @@ export default async function Home({
     },
   });
 
-  // const randomPost = posts.data[Math.floor(Math.random() * posts.data.length)];
-  const randomPost = posts.data[posts.data.length - 1];
-
-  const postsWithoutRandom = posts.data.filter(
-    (post) => post.id !== randomPost.id
-  );
+  const [randomPost] = await postivaClient.contents.getRandomContents({
+    limit: 1,
+  });
 
   return (
     <div className="flex flex-col gap-y-20">
       <FeaturedPost post={randomPost} />
-      <PostsSection posts={postsWithoutRandom} />
+      <PostsSection posts={posts.data} randomPost={randomPost} />
     </div>
   );
 }

@@ -24,6 +24,7 @@ const badgeVariants = cva(
         pill: "rounded-full",
       },
       size: {
+        sm: "px-2 py-0.5",
         default: "px-2.5 py-0.5",
         md: "px-3 py-1",
         lg: "px-4 py-2",

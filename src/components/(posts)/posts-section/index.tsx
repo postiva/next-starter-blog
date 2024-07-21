@@ -8,7 +8,13 @@ import { Fragment, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { PostsFilters } from "./posts-filters";
 
-export const PostsSection = ({ posts }: { posts: Content[] }) => {
+export const PostsSection = ({
+  posts,
+  randomPost,
+}: {
+  posts: Content[];
+  randomPost: Content;
+}) => {
   const [isMounted, setIsMounted] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
@@ -39,6 +45,8 @@ export const PostsSection = ({ posts }: { posts: Content[] }) => {
     setPage((prevPage) => prevPage + 1);
   };
 
+  const computedPosts = allPosts.filter((post) => post.id !== randomPost.id);
+
   return (
     <MenuProvider
       dimensions={{ sectionHeight: 30, commandHeight: 50, commands: 6 }}
@@ -63,7 +71,7 @@ export const PostsSection = ({ posts }: { posts: Content[] }) => {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {allPosts.length > 0 ? (
-            allPosts.map((post) => <PostCard key={post.id} {...post} />)
+            computedPosts.map((post) => <PostCard key={post.id} {...post} />)
           ) : (
             <div className="col-span-full">No posts found</div>
           )}
