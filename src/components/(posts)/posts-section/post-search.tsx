@@ -22,7 +22,7 @@ export const PostSearch = () => {
   return (
     <Fragment>
       <Badge
-        className="flex items-center gap-x-1.5 cursor-pointer transition-all duration-500 hover:bg-muted mr-2 lg:mr-0 lg:ml-2"
+        className="flex items-center gap-x-1.5 cursor-pointer transition-all duration-500 hover:bg-muted ml-2"
         radius="pill"
         size="md"
         onClick={handleSearch}

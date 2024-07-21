@@ -1,5 +1,5 @@
 import { FeaturedPost } from "@/components/(posts)/featured_post";
-import { PostsSection } from "@/components/(posts)/posts-section";
+import PostsSection from "@/components/(posts)/posts-section";
 import { postivaClient } from "@/lib/postiva";
 
 export default async function Home({
