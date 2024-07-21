@@ -9,8 +9,8 @@ dependencies:
     specifier: ^1.2.2
     version: 1.2.2
   '@postiva/client':
-    specifier: ^0.0.35
-    version: 0.0.35
+    specifier: ^0.0.39
+    version: 0.0.39
   '@radix-ui/react-avatar':
     specifier: ^1.1.0
     version: 1.1.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)
@@ -77,6 +77,9 @@ dependencies:
   react-icons:
     specifier: ^5.2.1
     version: 5.2.1(react@18.3.1)
+  react-infinite-scroll-component:
+    specifier: ^6.1.0
+    version: 6.1.0(react@18.3.1)
   react-query:
     specifier: ^3.39.3
     version: 3.39.3(react-dom@18.3.1)(react@18.3.1)
@@ -689,8 +692,8 @@ packages:
     requiresBuild: true
     optional: true
 
-  /@postiva/client@0.0.35:
-    resolution: {integrity: sha512-YcNN0eL6lknpW8lV0NQ9X0jRnZ0kqWIvynVzKHQ6Gv2PuEKQn1XPkMBzNlb57DZymqFMcqhmHkcW+K/esyAMFQ==}
+  /@postiva/client@0.0.39:
+    resolution: {integrity: sha512-s22tuYzrbyV0b6N6AxNu5gpPGBXGGsQzZ5E/Vf4iTZp1p5RjWdZNjnt5XYbVBhq5NFv42tLIcU5SYj0rNNIaCw==}
     dev: false
 
   /@radix-ui/primitive@1.1.0:
@@ -4562,6 +4565,15 @@ packages:
       react: 18.3.1
     dev: false
 
+  /react-infinite-scroll-component@6.1.0(react@18.3.1):
+    resolution: {integrity: sha512-SQu5nCqy8DxQWpnUVLx7V7b7LcA37aM7tvoWjTLZp1dk6EJibM5/4EJKzOnl07/BsM1Y40sKLuqjCwwH/xV0TQ==}
+    peerDependencies:
+      react: '>=16.0.0'
+    dependencies:
+      react: 18.3.1
+      throttle-debounce: 2.3.0
+    dev: false
+
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
     dev: true
@@ -5276,6 +5288,11 @@ packages:
     resolution: {integrity: sha512-RVZSIV5IG10Hk3enotrhvz0T9em6cyHBLkH/YAZuKqd8hRkKhSfCGIcP2KUY0EPxndzANBmNllzWPwak+bheSw==}
     dependencies:
       any-promise: 1.3.0
+
+  /throttle-debounce@2.3.0:
+    resolution: {integrity: sha512-H7oLPV0P7+jgvrk+6mwwwBDmxTaxnu9HMXmloNLXwnNO0ZxZ31Orah2n8lU1eMPvsaowP2CX+USCgyovXfdOFQ==}
+    engines: {node: '>=8'}
+    dev: false
 
   /to-regex-range@5.0.1:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}

@@ -52,7 +52,7 @@ export const FeaturedPost = ({ post }: { post: Content }) => {
                 {post.publishedBy?.user.name}
               </AvatarFallback>
             </Avatar>
-            <div className="flex lg:flex-col gap-x-2">
+            <div className="flex lg:flex-col gap-x-2 items-center lg:items-start">
               <p className="text-sm font-medium">
                 {post.publishedBy?.user.name}
               </p>

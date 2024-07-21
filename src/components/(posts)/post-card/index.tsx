@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import DateTooltip, { IDateMode } from "@/components/ui/date-tooltip";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Content } from "@postiva/client";
 import Image from "next/image";
 import Link from "next/link";
@@ -50,6 +51,37 @@ export const PostCard = (content: Content) => {
               date={new Date(content.publishedAt as string)}
             />
           </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const PostLoader = () => {
+  return (
+    <div className="flex flex-col gap-y-5 h-[450px] rounded-lg relative">
+      <div className="relative w-full h-52">
+        <Skeleton className="h-full rounded-lg" />
+      </div>
+      <div className="flex flex-col gap-y-3">
+        <div className="flex gap-2">
+          <Skeleton className="h-6 w-16" />
+          <Skeleton className="h-6 w-16" />
+        </div>
+        <div className="flex flex-col gap-y-2">
+          <Skeleton className="h-6 w-3/4" />
+          <div className="flex flex-col gap-y-1 mt-2">
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-full" />
+          </div>
+        </div>
+      </div>
+      <div className="mt-auto flex gap-x-2 items-center text-sm absolute bottom-2 left-0 w-full">
+        <Skeleton className="h-9 w-10" />
+        <div className="flex flex-col gap-y-1 w-full">
+          <Skeleton className="h-4 w-2/3" />
+          <Skeleton className="h-4 w-2/5" />
         </div>
       </div>
     </div>

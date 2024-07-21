@@ -7,9 +7,16 @@ export default async function Home({
 }: {
   searchParams?: { [key: string]: string | undefined };
 }) {
-  const selectedCategory = searchParams?.category as string;
+  const selectedCategories = searchParams?.categories as string;
+
   const posts = await postivaClient.contents.getContents({
-    ...(selectedCategory ? { categories: [selectedCategory] } : {}),
+    ...(selectedCategories
+      ? { categories: selectedCategories.split(",") }
+      : {}),
+    pagination: {
+      page: 1,
+      size: 7,
+    },
   });
 
   // const randomPost = posts.data[Math.floor(Math.random() * posts.data.length)];
