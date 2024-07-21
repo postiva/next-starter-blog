@@ -9,7 +9,7 @@ export default function PostThumbnail({
   className,
 }: {
   imageSrc: string;
-  className: string;
+  className?: string;
 }) {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 

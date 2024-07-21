@@ -21,7 +21,10 @@ export default async function Home({
 
   const [randomPost] = await postivaClient.contents.getRandomContents({
     limit: 1,
+    tags: ["featured"],
   });
+
+  console.log("randomPost", randomPost);
 
   return (
     <div className="flex flex-col gap-y-20">

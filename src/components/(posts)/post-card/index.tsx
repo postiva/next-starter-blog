@@ -27,7 +27,7 @@ export const PostCard = (content: Content) => {
           >
             {content.title}
           </Link>
-          <p className="text-sm text-gray-600 dark:text-[#7C7C86]">
+          <p className="text-sm text-gray-600 dark:text-[#7C7C86] line-clamp-3">
             {content.description}
           </p>
         </div>
