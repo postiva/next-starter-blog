@@ -10,7 +10,11 @@ export const PostCard = (content: Content) => {
   return (
     <div className="flex flex-col gap-y-5 h-[450px] rounded-lg relative">
       <div className="relative">
-        <PostThumbnail imageSrc={content.thumbnail as string} />
+        <PostThumbnail
+          slug={content.slug}
+          className="h-52"
+          imageSrc={content.thumbnail as string}
+        />
       </div>
       <div className="flex flex-col gap-y-4">
         <div className="flex flex-col gap-y-2">

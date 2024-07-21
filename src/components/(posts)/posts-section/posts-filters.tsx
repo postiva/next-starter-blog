@@ -18,7 +18,6 @@ export const PostsFilters = () => {
     queryKey: ["categories"],
     queryFn: () => postivaClient.categories.getCategories(),
   });
-  console.log("categories", categories);
 
   const searchParams = useSearchParams();
   const selectedCategoriesParam = searchParams.get("categories");
@@ -65,7 +64,7 @@ export const PostsFilters = () => {
           </Badge>
         </HoverCardTrigger>
         <HoverCardContent className="w-[450px] flex items-center justify-end lg:justify-start flex-row-reverse lg:flex-row flex-wrap">
-          {true ? (
+          {isLoading ? (
             <div className="flex items-center gap-1 flex-wrap">
               {new Array(14).fill(0).map((_, index) => (
                 <Skeleton

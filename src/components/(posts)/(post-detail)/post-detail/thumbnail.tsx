@@ -14,7 +14,7 @@ export default function PostDetailThumbnail({
     <div className="relative aspect-w-1 aspect-h-1 w-[360px] md:w-[600px] h-52 overflow-hidden rounded-xl bg-gray-200 xl:aspect-w-7 xl:aspect-h-8 md:h-96">
       <Image
         src={imageSrc}
-        className={`transform transition-all duration-500 rounded-lg group-hover:opacity-75 ${
+        className={`transform transition-all duration-500 rounded-lg group-hover:opacity-7 ${
           isImageLoaded
             ? "scale-75 blur-2xl grayscale"
             : "scale-100 blur-0 grayscale-0"

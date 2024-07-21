@@ -2,13 +2,13 @@ import BackBlogs from "@/components/(posts)/(post-detail)/back-blogs";
 import Claps from "@/components/(posts)/(post-detail)/post-detail/claps";
 import PostDetailThumbnail from "@/components/(posts)/(post-detail)/post-detail/thumbnail";
 import PostShare, {
-  TwitterShare,
+  XShare,
 } from "@/components/(posts)/(post-detail)/post-share";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { CodeBlock } from "@/components/ui/code-block";
 import DateTooltip, { IDateMode } from "@/components/ui/date-tooltip";
 import { postivaClient } from "@/lib/postiva";
-import { LucideEye } from "lucide-react";
+import { DotIcon, LucideEye } from "lucide-react";
 import { Metadata } from "next";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { redirect } from "next/navigation";
@@ -131,22 +131,21 @@ export default async function BlogDetail({
                   <span className="font-medium text-gray-800 dark:text-gray-200">
                     {post?.publishedBy?.user?.name}
                   </span>
-                  <ul className="text-xs text-gray-500 dark:text-neutral-200 flex items-center">
-                    <li className="inline-block relative pe-6 last:pe-0 last-of-type:before:hidden before:absolute before:top-1/2 before:end-2 before:-translate-y-1/2 before:size-1 before:bg-gray-300 before:rounded-full">
-                      <DateTooltip
-                        date={new Date(post?.publishedAt as string)}
-                        mode={IDateMode.absolute}
-                      />
-                    </li>
+                  <div className="text-xs text-gray-500 dark:text-neutral-200 flex items-center">
+                    <DateTooltip
+                      date={new Date(post?.publishedAt as string)}
+                      mode={IDateMode.absolute}
+                    />
+                    <DotIcon className="size-4" />
                     {post.readingStatus && (
-                      <li className="inline-block relative pe-6 last:pe-0 last-of-type:before:hidden before:absolute before:top-1/2 before:end-2 before:-translate-y-1/2 before:size-1 before:bg-gray-300 before:rounded-full">
+                      <div className="inline-block relative before:absolute before:top-1/2 before:end-2 before:-translate-y-1/2">
                         {post.readingStatus.minutes} min read
-                      </li>
+                      </div>
                     )}
-                  </ul>
+                  </div>
                 </div>
                 <div>
-                  <TwitterShare {...post} />
+                  <XShare {...post} />
                 </div>
               </div>
             </div>

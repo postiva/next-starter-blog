@@ -11,6 +11,7 @@ export const FeaturedPost = ({ post }: { post: Content }) => {
     <div className="bg-gray-100 border-gray-200 border dark:border-gray-800 dark:bg-card_bg rounded-lg p-2 grid grid-cols-12 h-[450px] lg:h-96">
       <div className="col-span-12 relative lg:h-full lg:col-span-6">
         <PostThumbnail
+          slug={post.slug}
           imageSrc={post.thumbnail as string}
           className="rounded-lg !h-full"
         />

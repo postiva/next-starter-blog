@@ -88,7 +88,7 @@ export const Cmdk = () => {
         {
           icon: <LuLink2 />,
           text: "Links...",
-          keywords: ["github", "code", "npm", "x", "twitter"],
+          keywords: ["github", "code", "npm", "x"],
           perform: () => setOpen(4),
         },
       ],
@@ -143,7 +143,7 @@ export const Cmdk = () => {
         },
         {
           icon: <BsTwitterX />,
-          text: "Twitter",
+          text: "X",
           href: "https://x.com/postivaapp",
           newTab: true,
         },
@@ -183,6 +183,23 @@ export const Cmdk = () => {
       fetchData("");
     }
   }, [open]);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.metaKey && event.key === "f") {
+        event.preventDefault();
+        setOpen(2);
+      } else if (event.key === "Escape") {
+        setOpen(1);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   return (
     <CommandWrapper>
