@@ -18,6 +18,8 @@ export const PostsFilters = () => {
     queryKey: ["categories"],
     queryFn: () => postivaClient.categories.getCategories(),
   });
+  console.log("categories", categories);
+
   const searchParams = useSearchParams();
   const selectedCategoriesParam = searchParams.get("categories");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -62,13 +64,13 @@ export const PostsFilters = () => {
             <ListFilter className="w-3 h-3 text-gray-700 dark:text-gray-100" />
           </Badge>
         </HoverCardTrigger>
-        <HoverCardContent className="w-[500px] flex items-center justify-end lg:justify-start flex-row-reverse lg:flex-row flex-wrap">
-          {isLoading ? (
-            <div className="flex items-center gap-x-2">
-              {new Array(8).fill(0).map((_, index) => (
+        <HoverCardContent className="w-[450px] flex items-center justify-end lg:justify-start flex-row-reverse lg:flex-row flex-wrap">
+          {true ? (
+            <div className="flex items-center gap-1 flex-wrap">
+              {new Array(14).fill(0).map((_, index) => (
                 <Skeleton
                   key={index}
-                  className="w-16 h-6 rounded-full !bg-secondary"
+                  className="w-16 h-4 rounded-full !bg-secondary"
                 />
               ))}
             </div>
@@ -90,7 +92,7 @@ export const PostsFilters = () => {
                   )}
                   All
                 </Badge>
-                {categories?.data.slice(0, 7).map((category) => (
+                {categories?.data?.map((category) => (
                   <Badge
                     key={category.id}
                     onClick={() => handleCategoryChange(category.id)}

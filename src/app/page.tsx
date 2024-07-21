@@ -24,8 +24,6 @@ export default async function Home({
     tags: ["featured"],
   });
 
-  console.log("randomPost", randomPost);
-
   return (
     <div className="flex flex-col gap-y-20">
       <FeaturedPost post={randomPost} />
