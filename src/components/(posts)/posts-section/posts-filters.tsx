@@ -73,7 +73,7 @@ export const PostsFilters = () => {
               ))}
             </div>
           ) : (
-            <div className="flex flex-col gap-y-2">
+            <div className="flex flex-col gap-y-3">
               <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">
                 Categories
               </h3>

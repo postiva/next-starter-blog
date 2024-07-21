@@ -131,7 +131,7 @@ export default async function BlogDetail({
                   <span className="font-medium text-gray-800 dark:text-gray-200">
                     {post?.publishedBy?.user?.name}
                   </span>
-                  <ul className="text-xs text-gray-500 dark:text-gray-400 flex gap-x-2">
+                  <ul className="text-xs text-gray-500 dark:text-gray-400 flex items-center">
                     <li className="inline-block relative pe-6 last:pe-0 last-of-type:before:hidden before:absolute before:top-1/2 before:end-2 before:-translate-y-1/2 before:size-1 before:bg-gray-300 before:rounded-full">
                       <DateTooltip
                         date={new Date(post?.publishedAt as string)}
@@ -160,7 +160,7 @@ export default async function BlogDetail({
             )}
           </div>
 
-          <article className="prose lg:prose-xl max-w-[600px]">
+          <article className="prose lg:prose-xl max-w-[600px] dark:prose-invert">
             <MDXRemote
               source={post?.body}
               options={{

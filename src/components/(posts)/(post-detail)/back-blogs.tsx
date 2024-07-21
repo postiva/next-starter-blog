@@ -9,7 +9,8 @@ export default function BackBlogs() {
       className={buttonVariants({
         variant: "outline",
         size: "sm",
-        className: "flex items-center mb-6",
+        className:
+          "flex items-center mb-6 dark:!bg-gray-800 dark:!border-gray-700",
       })}
     >
       <ChevronLeft className="w-4 h-4 mr-1" />
