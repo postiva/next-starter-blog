@@ -3,18 +3,16 @@ import { Badge } from "@/components/ui/badge";
 import DateTooltip, { IDateMode } from "@/components/ui/date-tooltip";
 import { Content } from "@postiva/client";
 import { SquareArrowOutUpRight } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
+import PostThumbnail from "../post-card/post-thumbnail";
 
 export const FeaturedPost = ({ post }: { post: Content }) => {
   return (
     <div className="bg-gray-100 border-gray-200 border dark:border-gray-800 dark:bg-card_bg rounded-lg p-2 grid grid-cols-12 h-[450px] lg:h-96">
-      <div className="col-span-12 relative h-56 lg:h-full lg:col-span-6">
-        <Image
-          src={post.thumbnail as string}
-          alt={post.title}
-          fill
-          className="rounded-lg"
+      <div className="col-span-12 relative lg:h-full lg:col-span-6">
+        <PostThumbnail
+          imageSrc={post.thumbnail as string}
+          className="rounded-lg !h-full"
         />
       </div>
       <div className="col-span-12 lg:col-span-6 h-full flex flex-col justify-between lg:py-6">
