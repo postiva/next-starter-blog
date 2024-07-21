@@ -3,19 +3,14 @@ import { Badge } from "@/components/ui/badge";
 import DateTooltip, { IDateMode } from "@/components/ui/date-tooltip";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Content } from "@postiva/client";
-import Image from "next/image";
 import Link from "next/link";
+import PostThumbnail from "./post-thumbnail";
 
 export const PostCard = (content: Content) => {
   return (
     <div className="flex flex-col gap-y-5 h-[450px] rounded-lg relative">
-      <div className="relative w-full h-52">
-        <Image
-          src={content.thumbnail as string}
-          alt={content.title}
-          className="rounded-lg"
-          fill
-        />
+      <div className="relative">
+        <PostThumbnail imageSrc={content.thumbnail as string} />
       </div>
       <div className="flex flex-col gap-y-4">
         <div className="flex flex-col gap-y-2">
