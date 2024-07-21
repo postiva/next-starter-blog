@@ -37,7 +37,7 @@ export const Cmdk = () => {
   const router = useRouter();
 
   const { setTheme } = useTheme();
-  const { open, setOpen, input } = useKmenu();
+  const { open, setOpen, input, toggle } = useKmenu();
   const [debouncedValue] = useDebounceValue(input, 500);
   const [loading, setLoading] = useState(false);
 
@@ -188,9 +188,8 @@ export const Cmdk = () => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.metaKey && event.key === "f") {
         event.preventDefault();
+        toggle();
         setOpen(2);
-      } else if (event.key === "Escape") {
-        setOpen(1);
       }
     };
 
