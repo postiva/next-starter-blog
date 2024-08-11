@@ -11,12 +11,18 @@ RUN export COREPACK_ENABLE_STRICT=0 && pnpm install --frozen-lockfile
 # Builder stage
 FROM base AS builder
 WORKDIR /app
+ENV NEXT_PUBLIC_POSTIVA_API_KEY=$NEXT_PUBLIC_POSTIVA_API_KEY \
+  NEXT_PUBLIC_WORKSPACE_ID=$NEXT_PUBLIC_WORKSPACE_ID \
+  NEXT_PUBLIC_URL=$NEXT_PUBLIC_URL
 COPY --from=installer /app/ .
 RUN export COREPACK_ENABLE_STRICT=0 && pnpm build
 
 # Runner stage
 FROM base AS runner
 WORKDIR /app
+ENV NEXT_PUBLIC_POSTIVA_API_KEY=$NEXT_PUBLIC_POSTIVA_API_KEY \
+  NEXT_PUBLIC_WORKSPACE_ID=$NEXT_PUBLIC_WORKSPACE_ID \
+  NEXT_PUBLIC_URL=$NEXT_PUBLIC_URL
 COPY --from=builder /app/ .
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
